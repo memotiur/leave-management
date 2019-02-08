@@ -34,7 +34,7 @@
             <p class="text-center mb-lg">
                 <br>
                 <a href="#">
-                    <img src="/app/img/logo3.png" alt="Image" width="75px" class="block-center img-rounded">
+                    <img src="/images/logo.png" alt="Image" width="75px" class="block-center img-rounded">
                 </a>
             </p>
             <p class="text-center mb-lg">

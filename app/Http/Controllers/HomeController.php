@@ -146,11 +146,11 @@ class HomeController extends Controller
     public function mailConfirm($email, $id)
     {
         $id = $this->encrypt($id);
-        $url = "benapole.pixonlab.com/user/confirm/" . $id;
-         $msg = "Please click on given Link:  \n " . $url;
+        $url = "www.benapolecustoms.com/user/confirm/" . $id;
+        $msg = "Please click on given Link:  \n " . $url;
 
         //echo $this->decrypt($id);
-        mail($email, "Mail From Leave APP ", $msg);
+        mail($email, "Benapole Customs Mail Verification ", $msg);
 
     }
 

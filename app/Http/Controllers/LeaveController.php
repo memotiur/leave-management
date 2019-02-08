@@ -67,8 +67,8 @@ class LeaveController extends Controller
             $unseen_notifications = \App\Leave::join('users', 'users.id', '=', 'leaves.user_id')
                 ->where('leaves.grant_officers_decision', 0)
                 ->get();
-        }else{
-            $unseen_notifications=null;
+        } else {
+            $unseen_notifications = null;
         }
         $unseen_replacement_notifications = \App\Leave::join('users', 'users.id', '=', 'leaves.replacement_person_id')->where('leaves.replacement_person_id', Session::get('id'))->where('replacement_person_agreement', 0)->get();
         return view('pages.leave.create')
@@ -166,8 +166,8 @@ class LeaveController extends Controller
             $unseen_notifications = \App\Leave::join('users', 'users.id', '=', 'leaves.user_id')
                 ->where('leaves.grant_officers_decision', 0)
                 ->get();
-        }else{
-            $unseen_notifications=null;
+        } else {
+            $unseen_notifications = null;
         }
         $unseen_replacement_notifications = \App\Leave::join('users', 'users.id', '=', 'leaves.replacement_person_id')->where('leaves.replacement_person_id', Session::get('id'))->where('replacement_person_agreement', 0)->get();
 
@@ -193,8 +193,8 @@ class LeaveController extends Controller
             $unseen_notifications = \App\Leave::join('users', 'users.id', '=', 'leaves.user_id')
                 ->where('leaves.grant_officers_decision', 0)
                 ->get();
-        }else{
-            $unseen_notifications=null;
+        } else {
+            $unseen_notifications = null;
         }
         $unseen_replacement_notifications = \App\Leave::join('users', 'users.id', '=', 'leaves.replacement_person_id')->where('leaves.replacement_person_id', Session::get('id'))->where('replacement_person_agreement', 0)->get();
 
@@ -221,7 +221,7 @@ class LeaveController extends Controller
                 ->where('users.authority_id', Session::get('id'))
                 ->orderBy('leave_id', 'DESC')
                 ->get();
-        }else{
+        } else {
             $result = Leave::join('users', 'users.id', '=', 'leaves.user_id')->orderBy('leave_id', 'DESC')->get();
         }
 
@@ -236,8 +236,8 @@ class LeaveController extends Controller
             $unseen_notifications = \App\Leave::join('users', 'users.id', '=', 'leaves.user_id')
                 ->where('leaves.grant_officers_decision', 0)
                 ->get();
-        }else{
-            $unseen_notifications=null;
+        } else {
+            $unseen_notifications = null;
         }
         $unseen_replacement_notifications = \App\Leave::join('users', 'users.id', '=', 'leaves.replacement_person_id')->where('leaves.replacement_person_id', Session::get('id'))->where('replacement_person_agreement', 0)->get();
 
@@ -252,27 +252,26 @@ class LeaveController extends Controller
     {
 
 
-     /*    //return $request->all();
+        /*    //return $request->all();
 
-        return $result = Leave::join('users', 'users.id', '=', 'leaves.user_id')
-            ->where('applicant_leave_from', '>=', $request['applicant_leave_from'])
-            ->where('applicant_leave_to', '<=', $request['applicant_leave_to'])
-            ->orderBy('leave_id', 'DESC')
-            ->get();*/
-
+           return $result = Leave::join('users', 'users.id', '=', 'leaves.user_id')
+               ->where('applicant_leave_from', '>=', $request['applicant_leave_from'])
+               ->where('applicant_leave_to', '<=', $request['applicant_leave_to'])
+               ->orderBy('leave_id', 'DESC')
+               ->get();*/
 
 
         if (Session::get('designation') == "DC/AC") {
             $result = Leave::join('users', 'users.id', '=', 'leaves.user_id')
                 ->where('users.authority_id', Session::get('id'))
                 ->where('applicant_leave_from', '>=', $request['applicant_leave_from'])
-                ->where('applicant_leave_to', '<=', $request['applicant_leave_to'])
+                ->Where('applicant_leave_to', '<=', $request['applicant_leave_to'])
                 ->orderBy('leave_id', 'DESC')
                 ->get();
-        }else{
+        } else {
             $result = Leave::join('users', 'users.id', '=', 'leaves.user_id')
                 ->where('applicant_leave_from', '>=', $request['applicant_leave_from'])
-                ->where('applicant_leave_to', '<=', $request['applicant_leave_to'])
+                ->Where('applicant_leave_to', '<=', $request['applicant_leave_to'])
                 ->orderBy('leave_id', 'DESC')->get();
         }
 
@@ -287,9 +286,11 @@ class LeaveController extends Controller
             $unseen_notifications = \App\Leave::join('users', 'users.id', '=', 'leaves.user_id')
                 ->where('leaves.grant_officers_decision', 0)
                 ->get();
-        }else{
-            $unseen_notifications=null;
+        } else {
+            $unseen_notifications = null;
         }
+
+
         $unseen_replacement_notifications = \App\Leave::join('users', 'users.id', '=', 'leaves.replacement_person_id')->where('leaves.replacement_person_id', Session::get('id'))->where('replacement_person_agreement', 0)->get();
 
 
@@ -298,8 +299,6 @@ class LeaveController extends Controller
             ->with('unseen_replacement_notifications', $unseen_replacement_notifications)
             ->with('result', $result);
     }
-
-
 
 
     public function edit($id)
@@ -359,8 +358,8 @@ class LeaveController extends Controller
             $unseen_notifications = \App\Leave::join('users', 'users.id', '=', 'leaves.user_id')
                 ->where('leaves.grant_officers_decision', 0)
                 ->get();
-        }else{
-            $unseen_notifications=null;
+        } else {
+            $unseen_notifications = null;
         }
         $unseen_replacement_notifications = \App\Leave::join('users', 'users.id', '=', 'leaves.replacement_person_id')->where('leaves.replacement_person_id', Session::get('id'))->where('replacement_person_agreement', 0)->get();
 
@@ -436,9 +435,9 @@ class LeaveController extends Controller
     {
 
         $user_id = Session::get('id');
-        $id= $request['leave_id'];
+        $id = $request['leave_id'];
         try {
-            Leave::where('leave_id', $id)->update(array('grant_officers_decision' => 1,'recommend_officer_comment' => $request['recommend_officer_comment']));
+            Leave::where('leave_id', $id)->update(array('grant_officers_decision' => 1, 'recommend_officer_comment' => $request['recommend_officer_comment']));
             $exist = LeaveAcceptTrack::where('leave_id', $id)->first();
             if (is_null($exist)) {
                 LeaveAcceptTrack::create(array('grant_officer_id' => $user_id, 'leave_id' => $id));
@@ -456,9 +455,9 @@ class LeaveController extends Controller
     public function grantCancel(Request $request)
     {
         $user_id = Session::get('id');
-        $id= $request['leave_id'];
+        $id = $request['leave_id'];
         try {
-            Leave::where('leave_id', $id)->update(array('grant_officers_decision' => 2,'recommend_officer_comment' => $request['recommend_officer_comment']));
+            Leave::where('leave_id', $id)->update(array('grant_officers_decision' => 2, 'recommend_officer_comment' => $request['recommend_officer_comment']));
             $exist = LeaveAcceptTrack::where('leave_id', $id)->first();
             if (is_null($exist)) {
                 LeaveAcceptTrack::create(array('grant_officer_id' => $user_id, 'leave_id' => $id));

@@ -37,19 +37,6 @@
                       enctype="multipart/form-data">
 
                     <div class="form-group">
-                        <label class="col-lg-2 control-label">Leave Approval Authority</label>
-                        <div class="col-lg-10">
-                            <select class="chosen-select form-control m-b" name="authority_id">
-                                @foreach($users as $user)
-                                    <option value="{{$user->id}}">{{$user->name}}</option>
-                                @endforeach
-                                <option value="1">Admin</option>
-                            </select>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
                         <label class="col-lg-2 control-label">Full Name</label>
                         <div class="col-lg-10">
                             <input type="hidden" class="form-control" name="_token" value="{{csrf_token()}}">
@@ -119,6 +106,26 @@
                         <label class="col-lg-2 control-label">Image</label>
                         <div class="col-lg-10">
                             <input type="file" class="form-control" name="image">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-lg-2 control-label">Leave Approval Authority</label>
+                        <div class="col-lg-10">
+
+                            <select class="chosen-select form-control m-b" name="authority_id">
+                                @foreach($users as $user)
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                @endforeach
+
+                            </select>
+
+                            {{-- <select class="chosen-select form-control m-b" name="authority_id">
+                                 @foreach($users as $user)
+                                     <option value="{{$user->id}}">{{$user->name}}</option>
+                                 @endforeach
+                                 <option value="1">Admin</option>
+                             </select>--}}
                         </div>
                     </div>
 

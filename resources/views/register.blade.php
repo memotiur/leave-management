@@ -26,7 +26,7 @@
 <body>
 
 <div style="height: 100%; padding: 50px 0; background-color: #2c3037" class="row row-table">
-    <div class="col-lg-4 col-md-6 col-sm-8 col-xs-12 align-middle">
+    <div class="col-lg-5 col-md-7 col-sm-8 col-xs-12 align-middle">
 
         <div data-toggle="play-animation" data-play="fadeInUp" data-offset="0" class="panel panel-default panel-flat">
 
@@ -35,11 +35,11 @@
             <p class="text-center mb-lg">
                 <br>
                 <a href="#">
-                    <img src="/app/img/logo3.png" alt="Image" width="75px" class="block-center img-rounded">
+                    <img src="/images/logo.png" alt="Image" width="75px" class="block-center img-rounded">
                 </a>
             </p>
             <p class="text-center mb-lg">
-                <strong>SIGN IN TO CONTINUE.</strong>
+                <strong>SIGN UP TO CONTINUE.</strong>
             @if(session('success'))
 
                 <div class="alert alert-success">{{session('success')}}!</div>
@@ -54,19 +54,6 @@
             <div class="panel-body">
                 <form class="form-horizontal" method="post" action="/user/registration/save"
                       enctype="multipart/form-data">
-
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">Leave Approval Authority</label>
-                        <div class="col-lg-9">
-                            <select class="chosen-select form-control m-b" name="authority_id">
-                                @foreach($users as $user)
-                                    <option value="{{$user->id}}">{{$user->name}}</option>
-                                @endforeach
-                                <option value="1">Admin</option>
-                            </select>
-                        </div>
-                    </div>
-
 
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Full Name</label>
@@ -135,6 +122,20 @@
                             <input type="password" placeholder="Password" class="form-control" name="password">
                         </div>
                     </div>
+
+                    <div class="form-group" style="display: none">
+                        <label class="col-lg-3 control-label">Leave Approval Authority</label>
+                        <div class="col-lg-9">
+                            <select class="chosen-select form-control m-b" name="authority_id">
+                                @foreach($users as $user)
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                @endforeach
+                                <option value="1">Admin</option>
+                            </select>
+                        </div>
+                    </div>
+
+
                     <div class="form-group">
                         <div class="col-lg-offset-3 col-lg-9">
                             <button type="submit" class="btn btn-sm btn-primary btn-block">Registration</button>
