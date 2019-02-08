@@ -43,7 +43,15 @@ Route::get('/admin-home', function () {
         $pending = \App\Leave::where('grant_officers_decision', 0)->count();
         $accepted = \App\Leave::where('grant_officers_decision', 1)->count();
         $failed = \App\Leave::where('grant_officers_decision', 2)->count();
-        $all_leave_request = \App\Leave::join('users', 'users.id', '=', 'leaves.user_id')->orderBy('leaves.leave_id', 'DESC')->get();
+
+        $all_leave_request = \App\Leave::join('users', 'users.id', '=', 'leaves.user_id')->orderBy('leaves.leave_id', 'DESC')->get([
+                'leaves.created_at',
+                'leaves.applicant_leave_from',
+                'leaves.applicant_leave_to',
+                'users.name'
+            ]
+
+        );
         return view('pages.home.index')
             ->with('unseen_notifications', $unseen_notifications)
             ->with('user_count', $user_count)
