@@ -251,6 +251,7 @@ class LeaveController extends Controller
     public function search(Request $request)
     {
 
+        //return $request->all();
 
         /*    //return $request->all();
 
@@ -264,14 +265,12 @@ class LeaveController extends Controller
         if (Session::get('designation') == "DC/AC") {
             $result = Leave::join('users', 'users.id', '=', 'leaves.user_id')
                 ->where('users.authority_id', Session::get('id'))
-                ->where('applicant_leave_from', '>=', $request['applicant_leave_from'])
-                ->Where('applicant_leave_to', '<=', $request['applicant_leave_to'])
+                ->whereBetween('applicant_leave_from', [$request['applicant_leave_from'], $request['applicant_leave_to']])
                 ->orderBy('leave_id', 'DESC')
                 ->get();
         } else {
             $result = Leave::join('users', 'users.id', '=', 'leaves.user_id')
-                ->where('applicant_leave_from', '>=', $request['applicant_leave_from'])
-                ->Where('applicant_leave_to', '<=', $request['applicant_leave_to'])
+                ->whereBetween('applicant_leave_from', [$request['applicant_leave_from'], $request['applicant_leave_to']])
                 ->orderBy('leave_id', 'DESC')->get();
         }
 
