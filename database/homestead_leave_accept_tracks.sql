@@ -1,0 +1,5 @@
+INSERT INTO homestead.migrations (id, migration, batch) VALUES (13, '2014_10_12_000000_create_users_table', 1);
+INSERT INTO homestead.migrations (id, migration, batch) VALUES (14, '2014_10_12_100000_create_password_resets_table', 1);
+INSERT INTO homestead.migrations (id, migration, batch) VALUES (15, '2018_09_06_111811_create_leaves_table', 1);
+INSERT INTO homestead.migrations (id, migration, batch) VALUES (16, '2018_09_07_111018_create_leave_accept_tracks_table', 1);
+INSERT INTO homestead.users (id, name, username, phone, email, dateofjoining, dateofbirth, designation, profile_pic, usertype, password, authority_id, active_status, remember_token, created_at, updated_at) VALUES (1, 'Admin', 'admin', '01717849968', 'admin@gmail.com', null, null, 'Commissioner', null, 1, '$2y$10$x5LKYfX/gDJPYSyRXUyS1.w3KEGhwGVB0h/RQZOhoCFLDuJqmYFFq', 0, 1, null, '2019-02-11 20:22:51', '2019-02-11 20:22:51');

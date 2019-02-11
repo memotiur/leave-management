@@ -6,6 +6,7 @@ use App\Leave;
 use App\LeaveAcceptTrack;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -121,10 +122,17 @@ class LeaveController extends Controller
         }
 
 
+        $applicant_leave_from = $request['applicant_leave_from'];
+        $applicant_leave_to = $request['applicant_leave_to'];
+
+        $applicant_leave_from = Carbon::parse($applicant_leave_from)->format('Y-m-d');
+        $applicant_leave_to = Carbon::parse($applicant_leave_to)->format('Y-m-d');
+
+
         $insert_array = array(
             'user_id' => $request['user_id'],
-            'applicant_leave_from' => $request['applicant_leave_from'],
-            'applicant_leave_to' => $request['applicant_leave_to'],
+            'applicant_leave_from' => $applicant_leave_from,
+            'applicant_leave_to' => $applicant_leave_to,
             'applicant_leave_duration' => $request['applicant_leave_duration'],
             'applicant_leave_reason' => $request['applicant_leave_reason'],
             'applicant_leave_type' => $leave_type,
@@ -251,28 +259,39 @@ class LeaveController extends Controller
     public function search(Request $request)
     {
 
-        //return $request->all();
+        // return $request->all();
 
-        /*    //return $request->all();
 
-           return $result = Leave::join('users', 'users.id', '=', 'leaves.user_id')
-               ->where('applicant_leave_from', '>=', $request['applicant_leave_from'])
-               ->where('applicant_leave_to', '<=', $request['applicant_leave_to'])
-               ->orderBy('leave_id', 'DESC')
-               ->get();*/
+        $applicant_leave_from = $request['applicant_leave_from'];
+        $applicant_leave_to = $request['applicant_leave_to'];
 
+        $applicant_leave_from = Carbon::parse($applicant_leave_from)->format('Y-m-d');
+        $applicant_leave_to = Carbon::parse($applicant_leave_to)->format('Y-m-d');
 
         if (Session::get('designation') == "DC/AC") {
-            $result = Leave::join('users', 'users.id', '=', 'leaves.user_id')
+            $loadResult = Leave::join('users', 'users.id', '=', 'leaves.user_id')
                 ->where('users.authority_id', Session::get('id'))
-                ->whereBetween('applicant_leave_from', [$request['applicant_leave_from'], $request['applicant_leave_to']])
+                ->where('applicant_leave_from', '>=', $applicant_leave_from)
+                //->where('applicant_leave_to', '<=', $request['applicant_leave_to'])
                 ->orderBy('leave_id', 'DESC')
                 ->get();
         } else {
-            $result = Leave::join('users', 'users.id', '=', 'leaves.user_id')
-                ->whereBetween('applicant_leave_from', [$request['applicant_leave_from'], $request['applicant_leave_to']])
-                ->orderBy('leave_id', 'DESC')->get();
+            $loadResult = Leave::join('users', 'users.id', '=', 'leaves.user_id')
+                ->where('applicant_leave_from', '>=', $applicant_leave_from)
+                //->where('applicant_leave_to', '<=', $request['applicant_leave_to'])
+                ->orderBy('leave_id', 'DESC')
+                ->get();
         }
+
+        $result = [];
+        foreach ($loadResult as $res) {
+            if ($applicant_leave_to <= $res['applicant_leave_to']) {
+                $result = array($res);
+                array_push($result, $res);
+            }
+        }
+
+        //return $result;
 
         if (Session::get('designation') == "DC/AC") {
             $unseen_notifications = \App\Leave::join('users', 'users.id', '=', 'leaves.user_id')

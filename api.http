@@ -1,0 +1,11 @@
+
+
+POST http://localhost:8000/leave/search
+Content-Type: application/json
+
+{
+"applicant_leave_from": "02/16/2019",
+"applicant_leave_to": "02/18/2019"
+}
+
+###

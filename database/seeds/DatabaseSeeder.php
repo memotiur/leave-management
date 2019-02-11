@@ -14,10 +14,10 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
         \App\User::create([
-                'name' => "Motiur",
-                'username' => "memotiur",
+                'name' => "Admin",
+                'username' => "admin",
                 'phone' => "01717849968",
-                'email' => "memotiur@gmail.com",
+                'email' => "admin@gmail.com",
                 'designation' => "Commissioner",
                 'usertype' => "1",
                 'authority_id' => "0",
