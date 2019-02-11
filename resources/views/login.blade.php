@@ -56,12 +56,12 @@
                         {{-- <div class="text-right mb-sm"><a href="#" class="text-muted">Need to Signup?</a>
                          </div>--}}
                         <div class="form-group has-feedback">
-                            <input id="exampleInputEmail1" type="text" placeholder="Username" >
+                            <input id="exampleInputEmail1" type="text" placeholder="Username"
                                    class="form-control" name="username">
                             <span class="fa fa-phone form-control-feedback text-muted"></span>
                         </div>
                         <div class="form-group has-feedback">
-                            <input id="exampleInputPassword1" type="password" placeholder="Password">
+                            <input id="exampleInputPassword1" type="password" placeholder="Password"
                                    class="form-control" name="password">
                             <input type="hidden" class="form-control" name="_token" value="{{csrf_token()}}">
                             <span class="fa fa-lock form-control-feedback text-muted"></span>
